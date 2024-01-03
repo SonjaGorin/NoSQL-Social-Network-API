@@ -8,3 +8,5 @@ const {
 router.route("/").get(getAllThoughts);
 
 router.route("/:id").get(getSingleThought);
+
+module.exports = router;
