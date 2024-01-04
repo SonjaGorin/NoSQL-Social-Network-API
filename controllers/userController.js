@@ -45,7 +45,7 @@ module.exports = {
                 { $set: req.body },
                 { runValidators: true, new: true }
             );
-            
+
             if (!user) {
                 return res.status(404).json({ message: "No user found with that id" });
             };
@@ -78,5 +78,5 @@ module.exports = {
             res.status(500).json(err);
             console.log(err)
         }
-      },
+    },
 }                                                         
