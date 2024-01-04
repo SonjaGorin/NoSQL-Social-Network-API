@@ -26,10 +26,10 @@ module.exports = {
 
     async createThought(req, res) {
         try {
-            const dbThoughtData = await Thought.create(req.body);
+            const thought = await Thought.create(req.body);
             const user = await User.findOneAndUpdate(
                 { _id: req.body.userId },
-                {$push: {thoughts: dbThoughtData._id }},
+                { $push: {thoughts: thought._id } },
                 { new: true }
             );
 
@@ -39,7 +39,22 @@ module.exports = {
                 });
             }
 
-            res.json(dbThoughtData);
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+            console.log(err)
+        }
+    },
+
+    async deleteThought(req, res) {
+        try {
+            const thought = await Thought.findOneAndDelete({ _id: req.params.id });
+        
+            if (!thought) {
+                return res.status(404).json({ message: "No thought with that ID" });
+            }
+        
+            res.json({ message: "Thought deleted!" })
         } catch (err) {
             res.status(500).json(err);
             console.log(err)
