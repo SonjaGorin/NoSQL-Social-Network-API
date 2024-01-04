@@ -45,11 +45,18 @@ module.exports = {
                 { $set: req.body },
                 { runValidators: true, new: true }
             );
-        
+            
             if (!user) {
                 return res.status(404).json({ message: "No user found with that id" });
+            };
+
+            for (let thoughtId of user.thoughts) {
+                await Thought.findOneAndUpdate(
+                    { _id: thoughtId },
+                    { $set: {username: user.username} },
+                    { runValidators: true, new: true }
+                )
             }
-        
             res.json(user);
         } catch (err) {
             console.log(err);
