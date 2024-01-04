@@ -32,14 +32,13 @@ module.exports = {
                 {$push: {thoughts: dbThoughtData._id }},
                 { new: true }
             );
-            console.log("1")
 
             if (!user) {
                 return res.status(404).json({
                     message: "Thought created, but found no user with that id",
                 });
             }
-            console.log("2")
+
             res.json(dbThoughtData);
         } catch (err) {
             res.status(500).json(err);

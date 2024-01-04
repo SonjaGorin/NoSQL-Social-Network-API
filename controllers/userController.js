@@ -31,9 +31,28 @@ module.exports = {
 
     async createUser(req, res) {
         try {
-            const dbUserData = await User.create(req.body);
-            res.json(dbUserData);
+            const user = await User.create(req.body);
+            res.json(user);
         } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    async updateUser(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: req.body },
+                { runValidators: true, new: true }
+            );
+        
+            if (!user) {
+                return res.status(404).json({ message: "No user found with that id" });
+            }
+        
+            res.json(user);
+        } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     },
@@ -47,8 +66,7 @@ module.exports = {
             }
         
             await Thought.deleteMany({ _id: { $in: user.thoughts } });
-            await User.deleteMany({ _id: { $in: user.friends } });
-            res.json({ message: "User and associated apps deleted!" })
+            res.json({ message: "User and associated thoughts deleted!" })
         } catch (err) {
             res.status(500).json(err);
             console.log(err)
