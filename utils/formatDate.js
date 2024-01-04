@@ -1,5 +1,9 @@
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat.js";
+const dayjs = require("dayjs");
+const advancedFormat = require("dayjs/plugin/advancedFormat.js");
 dayjs.extend(advancedFormat);
 
-const today = dayjs();
+const formatDate = (timestamp) => {
+    return dayjs(timestamp).format("MMM Do, YYYY [at] h:mm:ss a");
+}
+
+module.exports = formatDate
