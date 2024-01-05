@@ -19,7 +19,7 @@ module.exports = {
             const user = await User.findOne({ _id: req.params.id })
             .populate("thoughts")
             .populate("friends")
-            .select('-__v');
+            .select("-__v");
         
             if (!user) {
                 return res.status(404).json({ message: "No user found with that id" });
