@@ -1,6 +1,7 @@
 const { User } = require("../models");
 
 module.exports = {
+    // add a friend to the user
     async addFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(
@@ -19,6 +20,7 @@ module.exports = {
         }
     },
 
+    // remove friend
     async deleteFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(

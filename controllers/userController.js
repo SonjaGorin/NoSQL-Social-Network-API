@@ -1,6 +1,7 @@
 const { User, Thought } = require("../models");
 
 module.exports = {
+    // find all users
     async getAllUsers(req, res) {
         try {
             const user = await User.find()
@@ -12,6 +13,7 @@ module.exports = {
         }
     },
 
+    // find one user, but show content of thoughts and friends
     async getSingleUser(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.id })
@@ -29,6 +31,7 @@ module.exports = {
         }
     },
 
+    // add user
     async createUser(req, res) {
         try {
             const user = await User.create(req.body);
@@ -38,6 +41,7 @@ module.exports = {
         }
     },
 
+    // update user
     async updateUser(req, res) {
         try {
             const user = await User.findOneAndUpdate(
@@ -50,6 +54,7 @@ module.exports = {
                 return res.status(404).json({ message: "No user found with that id" });
             };
 
+            // update the thoughts.username field
             for (let thoughtId of user.thoughts) {
                 await Thought.findOneAndUpdate(
                     { _id: thoughtId },
@@ -64,6 +69,7 @@ module.exports = {
         }
     },
 
+    // delete user
     async deleteUser(req, res) {
         try {
             const user = await User.findOneAndDelete({ _id: req.params.id });
@@ -72,6 +78,7 @@ module.exports = {
                 return res.status(404).json({ message: "No user with that ID" });
             }
         
+            // delete user's thoughts too when user is deleted
             await Thought.deleteMany({ _id: { $in: user.thoughts } });
             res.json({ message: "User and associated thoughts deleted!" })
         } catch (err) {

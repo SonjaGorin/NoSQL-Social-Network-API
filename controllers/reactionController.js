@@ -1,6 +1,7 @@
 const { Thought } = require("../models");
 
 module.exports = {
+    // create reaction to user's thought
     async createReaction(req, res) {
         try {
             const thought = await Thought.findOneAndUpdate(
@@ -19,6 +20,7 @@ module.exports = {
         }
     },
 
+    // delete reaction
     async deleteReaction(req, res) {
         try {
             const thought = await Thought.findOneAndUpdate(
