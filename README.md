@@ -17,7 +17,7 @@ You can make GET, POST, PUT or DELETE requests.
 
 Video walk-through:  
 
-[NoSQL-Social-Network-API-Video-walk-through]()
+[NoSQL-Social-Network-API-Video-walk-through](https://drive.google.com/file/d/1N4SgAou1vJh_TAEiosXuq_ixpWPzxud9/view)
 
 ## License
 Please refer to the LICENSE in the repo.
