@@ -72,6 +72,14 @@ module.exports = {
             if (!thought) {
                 return res.status(404).json({ message: "No thought with that ID" });
             }
+
+            // for (let thoughtId of user.thoughts) {
+            //     await User.findOneAndUpdate(
+            //         { _id: thoughtId },
+            //         { $pull: {thoughts: thought.thoughtId} },
+            //         { runValidators: true, new: true }
+            //     )
+            // }
         
             res.json({ message: "Thought deleted!" })
         } catch (err) {
